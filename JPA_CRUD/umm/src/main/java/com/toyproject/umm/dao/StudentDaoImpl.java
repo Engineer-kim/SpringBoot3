@@ -46,6 +46,10 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     @Transactional
     public void update(Student theStudent) {
+        //merge()는 준영속 상태의 엔티티를 영속성 컨텍스트에 다시 통합/
+        //준영속 상태 :엔티티는 메모리에서 존재하지만,
+        // 영속성 컨텍스트와의 연결이 끊어졌기 때문에 merge() 메소드를 사용해야 변경 사항을 DB에 반영할 수 있음
+        // DB에는 존재 JPA가 관리안함 그렇기에 더티채킹을 자동으로 하지않음(트랜잭션의 영향을 받지 않음)
         entityManager.merge(theStudent);
     }
 
