@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class AopdemoApplication {
 
@@ -22,8 +24,8 @@ public class AopdemoApplication {
 
 		return runner ->{
 
-			demoTheBefore(accountRepository , memberShipRepository);
-
+			//demoTheBefore(accountRepository , memberShipRepository);
+			demoTheAfterReturnAdvice(accountRepository);
 
 		};
 	}
@@ -46,5 +48,16 @@ public class AopdemoApplication {
 
 		memberShipRepository.addSillyMember();
 		memberShipRepository.suspendMembershipRepo();
+	}
+
+	private void demoTheAfterReturnAdvice(AccountRepository accountRepository ) {
+		List<Account> theAccounts = accountRepository.findAccounts();
+		System.out.println("\n\nMain Program: demoTheAfterReturningAdvice , 성공했으면 생성되는 AOP");
+		System.out.println("----");
+
+		System.out.println(theAccounts);
+
+		System.out.println("\n");
+
 	}
 }
