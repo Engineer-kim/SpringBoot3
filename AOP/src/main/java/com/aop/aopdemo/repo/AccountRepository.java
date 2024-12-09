@@ -18,17 +18,24 @@ public class AccountRepository {
     }
 
     public List<Account> findAccounts() {
-
-        List<Account> accounts = new ArrayList<>();
-
-        Account a = new Account("john" , "silver");
-        Account b = new Account("john2" , "gold");
-
-        accounts.add(a);
-        accounts.add(b);
-
-        return accounts;
+        return findAccounts(false);
     }
+
+    public List<Account> findAccounts(boolean booleanValue) {
+        if (booleanValue) { //넘겨받은 booleanValue 이게 True 면 오류 false 면 굿
+            throw new RuntimeException("런타임 오류요");
+        }
+
+        List<Account> myAccounts = new ArrayList<>();
+        Account temp1 = new Account("John", "Silver");
+        Account temp2 = new Account("Madhu", "Platinum");
+        Account temp3 = new Account("Luca", "Gold");
+        myAccounts.add(temp1);
+        myAccounts.add(temp2);
+        myAccounts.add(temp3);
+        return myAccounts;
+    }
+
 
     public boolean doWork() {
 

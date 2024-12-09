@@ -14,6 +14,12 @@ import java.util.List;
 @SpringBootApplication
 public class AopdemoApplication {
 
+	private final AccountRepository accountRepository;
+
+	public AopdemoApplication(AccountRepository accountRepository) {
+		this.accountRepository = accountRepository;
+	}
+
 	public static void main(String[] args) {
 
 		SpringApplication.run(AopdemoApplication.class, args);
@@ -25,10 +31,27 @@ public class AopdemoApplication {
 		return runner ->{
 
 			//demoTheBefore(accountRepository , memberShipRepository);
-			demoTheAfterReturnAdvice(accountRepository);
+			//demoTheAfterReturnAdvice(accountRepository);
+			demoTheAfterThrowingAdvice(accountRepository);
 
 		};
 	}
+
+	private void demoTheAfterThrowingAdvice(AccountRepository accountRepository) {
+		List<Account> theAccounts = null;
+		try {
+			boolean booleanValue = true;
+			theAccounts = accountRepository.findAccounts(booleanValue);
+		}
+		catch (Exception exc) {
+			System.out.println("\n\nMain Program: ... caught exception: " + exc);
+		}
+		System.out.println("\n\nMain Program: demoTheAfterThrowingAdvice");
+		System.out.println("----");
+		System.out.println(theAccounts);
+		System.out.println("\n");
+	}
+
 
 
 	private void demoTheBefore(AccountRepository accountRepository , MemberShipRepository memberShipRepository) {
