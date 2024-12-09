@@ -3,6 +3,7 @@ package com.aop.aopdemo;
 import com.aop.aopdemo.dto.Account;
 import com.aop.aopdemo.repo.AccountRepository;
 import com.aop.aopdemo.repo.MemberShipRepository;
+import com.aop.aopdemo.service.TestService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +27,7 @@ public class AopdemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountRepository accountRepository , MemberShipRepository memberShipRepository) {
+	public CommandLineRunner commandLineRunner(AccountRepository accountRepository , MemberShipRepository memberShipRepository, TestService testService) {
 
 		return runner ->{
 
@@ -34,8 +35,18 @@ public class AopdemoApplication {
 			//demoTheAfterReturnAdvice(accountRepository);
 			demoTheAfterThrowingAdvice(accountRepository);
 			demoTheAfterAdvice(accountRepository);
+			demoTheAroundAdvice(testService);
 		};
 	}
+	private void demoTheAroundAdvice(TestService testService) {
+
+		System.out.println("\nMain Program: demoTheAroundAdvice");
+		System.out.println("Calling getFortune()");
+		String data = testService.getFortune();
+		System.out.println("\nMy fortune is: " + data);
+		System.out.println("Finished");
+	}
+
 
 	private void demoTheAfterAdvice(AccountRepository accountRepository) {
 

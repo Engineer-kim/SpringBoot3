@@ -3,6 +3,7 @@ package com.aop.aopdemo.aspect;
 
 import com.aop.aopdemo.dto.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,20 @@ import java.util.List;
 @Component
 @Order(2)
 public class MyDemoLogginAspect {
+
+
+    @Around("execution(* com.aop.aopdemo.service.*.getFortune(..))")
+    public Object aroundGetFortune(
+            ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
+        String method = theProceedingJoinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @Around on method: " + method);
+        long begin = System.currentTimeMillis();
+        Object result = theProceedingJoinPoint.proceed();
+        long end = System.currentTimeMillis();
+        long duration = end - begin;
+        System.out.println("\n=====> Duration: " + duration / 1000.0 + " seconds");
+        return result;
+    }
 
     @After("execution(* com.aop.aopdemo.repo.AccountRepository.findAccounts(..))")
     public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint) {
