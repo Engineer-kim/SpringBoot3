@@ -33,8 +33,24 @@ public class AopdemoApplication {
 			//demoTheBefore(accountRepository , memberShipRepository);
 			//demoTheAfterReturnAdvice(accountRepository);
 			demoTheAfterThrowingAdvice(accountRepository);
-
+			demoTheAfterAdvice(accountRepository);
 		};
+	}
+
+	private void demoTheAfterAdvice(AccountRepository accountRepository) {
+
+		List<Account> theAccounts = null;
+		try {
+			boolean boolValue = false;
+			theAccounts = accountRepository.findAccounts(boolValue);
+		}
+		catch (Exception exc) {
+			System.out.println("\n\nMain Program: ... caught exception: " + exc);
+		}
+		System.out.println("\n\nMain Program: demoTheAfterAdvice");
+		System.out.println("----");
+		System.out.println(theAccounts);
+		System.out.println("\n");
 	}
 
 	private void demoTheAfterThrowingAdvice(AccountRepository accountRepository) {

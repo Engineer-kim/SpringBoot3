@@ -3,10 +3,7 @@ package com.aop.aopdemo.aspect;
 
 import com.aop.aopdemo.dto.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +13,13 @@ import java.util.List;
 @Component
 @Order(2)
 public class MyDemoLogginAspect {
+
+    @After("execution(* com.aop.aopdemo.repo.AccountRepository.findAccounts(..))")
+    public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint) {
+        String method = theJoinPoint.getSignature().toShortString();
+        System.out.println("\n=====>>> Executing @After (finally) on method: " + method);
+    }
+
 
     @AfterThrowing(
             pointcut = "execution(* com.aop.aopdemo.repo.AccountRepository.findAccounts(..))",
